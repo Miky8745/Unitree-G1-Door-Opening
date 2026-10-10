@@ -2,3 +2,6 @@ orig-data/
 .venv/
 .vscode/
 __pycache__/
+runs/
+weights/
+*.pt

@@ -12,7 +12,7 @@ Two-stage YOLO11 detector for door handles (step 1 of the G1 door-opening pipeli
 ## Setup
 ```bash
 uv venv --python 3.12 .venv
-uv pip install --python .venv torch torchvision --index-url https://download.pytorch.org/whl/cu126
+uv pip install --python .venv torch torchvision --index-url https://download.pytorch.org/whl/cu128
 uv pip install --python .venv ultralytics
 source .venv/bin/activate
 ```
