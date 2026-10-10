@@ -42,10 +42,6 @@ python train.py export --format engine
 ```
 
 ## Notes
-- **GPU memory.** On the Quadro M2000M laptop (4 GB, with only about 1 GB free
-  after the desktop and browser) yolo11s ran out of memory at batch 8, and
-  Ultralytics fell back to batch 1. Train on a bigger GPU. On a small card use `--batch -1` (auto-fit to
-  free memory) or `--model yolo11n.pt`.
 - **Small handles.** In far shots the handle is about 1% of the image width. If
   `predict` misses far handles, retrain stage 2 with `--imgsz 960`. Note that this
   costs FPS on the Jetson.
@@ -55,6 +51,3 @@ python train.py export --format engine
 - **Test set.** The handles test split is phone photos. The real test is frames
   from the G1 head camera; add some of those to `data/handles/test` as soon as you
   can capture them.
-- **Next step.** To grasp a handle you need more than a box: you need its pivot
-  and tip, plus depth. Consider re-labeling the handles set as keypoints and
-  training a YOLO-pose model.
