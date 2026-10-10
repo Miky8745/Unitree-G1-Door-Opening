@@ -1,10 +1,19 @@
-"""Draw YOLO labels onto images: python viz_labels.py <out.jpg> <img> [<img> ...]"""
+"""Draw YOLO labels onto images: python viz_labels.py <out.jpg> <img|dir|glob> [...]"""
+import glob
 import sys
 from pathlib import Path
 from PIL import Image, ImageDraw
 
+# Windows shells don't expand wildcards, so expand globs and directories here.
+paths = []
+for arg in sys.argv[2:]:
+    if Path(arg).is_dir():
+        paths += sorted(Path(arg).glob("*.jpg"))
+    else:
+        paths += sorted(map(Path, glob.glob(arg))) or [Path(arg)]
+
 tiles = []
-for p in map(Path, sys.argv[2:]):
+for p in paths:
     im = Image.open(p).convert("RGB")
     W, H = im.size
     d = ImageDraw.Draw(im)
