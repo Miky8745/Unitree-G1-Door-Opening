@@ -1,0 +1,5 @@
+train: ['/home/miky8745/Programming/g1/door-opening/data/handles/train/images', '/home/miky8745/Programming/g1/door-opening/data/handles/train/images', '/home/miky8745/Programming/g1/door-opening/data/handles/train/images', '/home/miky8745/Programming/g1/door-opening/data/handles/train/images', '/home/miky8745/Programming/g1/door-opening/Door handle.v1-door_handle_one_ann.yolov8/train/images']
+val: '/home/miky8745/Programming/g1/door-opening/data/handles/valid/images'
+test: '/home/miky8745/Programming/g1/door-opening/data/handles/test/images'
+nc: 1
+names: ['Door-handle']

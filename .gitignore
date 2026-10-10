@@ -1,0 +1,4 @@
+orig-data/
+.venv/
+.vscode/
+__pycache__/

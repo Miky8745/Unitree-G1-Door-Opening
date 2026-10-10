@@ -1,0 +1,6 @@
+path: /home/miky8745/Programming/g1/door-opening/weights/../data/handles
+train: train/images
+val: valid/images
+test: test/images
+nc: 1
+names: ['Door-handle']
