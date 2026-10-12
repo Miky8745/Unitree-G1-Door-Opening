@@ -40,7 +40,7 @@ def stage1(args):
                       GENERAL / "test/images")
     YOLO(args.model).train(
         data=data, epochs=args.epochs or 100, imgsz=args.imgsz, batch=args.batch,
-        patience=25, project=RUNS, name="stage1", exist_ok=True,
+        workers=args.workers, patience=25, project=RUNS, name="stage1", exist_ok=True,
         # handles are small; scale/mosaic augmentation helps far-away doors
         scale=0.5, mosaic=1.0, close_mosaic=10,
     )
@@ -56,7 +56,7 @@ def stage2(args):
     )
     YOLO(args.weights or RUNS / "stage1/weights/best.pt").train(
         data=data, epochs=args.epochs or 60, imgsz=args.imgsz, batch=args.batch,
-        lr0=0.001, warmup_epochs=1, freeze=args.freeze, patience=20,
+        workers=args.workers, lr0=0.001, warmup_epochs=1, freeze=args.freeze, patience=20,
         project=RUNS, name="stage2", exist_ok=True,
         scale=0.5, degrees=5, close_mosaic=10,
     )
@@ -93,6 +93,7 @@ if __name__ == "__main__":
     ap.add_argument("--epochs", type=int)
     ap.add_argument("--imgsz", type=int, default=640)
     ap.add_argument("--batch", type=int, default=16, help="-1 = auto-fit to GPU memory")
+    ap.add_argument("--workers", type=int, default=8, help="dataloader processes; lower if workers crash (Windows RAM)")
     ap.add_argument("--freeze", type=int, default=0, help="freeze first N layers in stage2 (10 = backbone)")
     ap.add_argument("--oversample", type=int, default=4)
     ap.add_argument("--dataset", default="handles_mix", help="eval: data/<name>.yaml")
