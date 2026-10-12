@@ -2,6 +2,9 @@ orig-data/
 .venv/
 .vscode/
 __pycache__/
-runs/
-weights/
 *.pt
+!best.pt
+*.png
+*.csv
+train_batch*
+val_batch*
