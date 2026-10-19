@@ -8,3 +8,4 @@ __pycache__/
 *.csv
 train_batch*
 val_batch*
+runs/predict

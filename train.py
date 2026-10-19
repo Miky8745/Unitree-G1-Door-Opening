@@ -14,6 +14,7 @@ Usage:
 """
 
 import argparse
+import os
 from pathlib import Path
 
 from ultralytics import YOLO
@@ -27,7 +28,9 @@ RUNS = ROOT / "runs"
 def write_yaml(name, train, val, test=None):
     path = ROOT / "data" / f"{name}.yaml"
     path.parent.mkdir(exist_ok=True)
-    fmt = lambda v: "[" + ", ".join(f"'{p}'" for p in v) + "]" if isinstance(v, list) else f"'{v}'"
+    # Relative to the yaml (no `path:` key) with forward slashes, so it works on any machine/OS
+    rel = lambda p: Path(os.path.relpath(p, path.parent)).as_posix()
+    fmt = lambda v: "[" + ", ".join(f"'{rel(p)}'" for p in v) + "]" if isinstance(v, list) else f"'{rel(v)}'"
     text = f"train: {fmt(train)}\nval: {fmt(val)}\n"
     if test:
         text += f"test: {fmt(test)}\n"
@@ -74,8 +77,10 @@ def evaluate(args):
 def predict(args):
     model = YOLO(args.weights or RUNS / "stage2/weights/best.pt")
     for source in args.source:  # one at a time: ultralytics can't mix images and videos
-        model.predict(source, imgsz=args.imgsz, conf=0.25, save=True, stream=False,
-                      project=RUNS, name="predict", exist_ok=True, verbose=False)
+        results = model.predict(source, imgsz=args.imgsz, conf=0.25, save=True, stream=args.stream,
+                                project=RUNS, name="predict", exist_ok=True, verbose=False)
+        for _ in results:  # a stream is a lazy generator: frames are only processed when iterated
+            pass
     print(f"saved to {RUNS / 'predict'}")
 
 
@@ -98,6 +103,7 @@ if __name__ == "__main__":
     ap.add_argument("--oversample", type=int, default=4)
     ap.add_argument("--dataset", default="handles_mix", help="eval: data/<name>.yaml")
     ap.add_argument("--source", nargs="+", default=["close.jpg", "far.jpg", "handle.mp4"])
+    ap.add_argument("--stream", action="store_true", help="predict: process frames lazily (long videos, less RAM)")
     ap.add_argument("--format", default="onnx", choices=["onnx", "engine"])
     args = ap.parse_args()
     {"stage1": stage1, "stage2": stage2, "eval": evaluate, "predict": predict,

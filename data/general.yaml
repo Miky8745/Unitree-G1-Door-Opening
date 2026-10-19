@@ -1,5 +1,5 @@
-train: 'M:\Kulisek\Unitree-G1-Door-Opening\Door handle.v1-door_handle_one_ann.yolov8\train\images'
-val: 'M:\Kulisek\Unitree-G1-Door-Opening\Door handle.v1-door_handle_one_ann.yolov8\valid\images'
-test: 'M:\Kulisek\Unitree-G1-Door-Opening\Door handle.v1-door_handle_one_ann.yolov8\test\images'
+train: '../Door handle.v1-door_handle_one_ann.yolov8/train/images'
+val: '../Door handle.v1-door_handle_one_ann.yolov8/valid/images'
+test: '../Door handle.v1-door_handle_one_ann.yolov8/test/images'
 nc: 1
 names: ['Door-handle']
