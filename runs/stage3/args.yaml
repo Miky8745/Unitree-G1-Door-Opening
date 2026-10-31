@@ -5,7 +5,7 @@ data: M:\Kulisek\Unitree-G1-Door-Opening\data\handles_neg_mix.yaml
 epochs: 40
 time: null
 patience: 15
-batch: -1
+batch: 16
 imgsz: 640
 save: true
 save_period: -1
@@ -29,7 +29,7 @@ resume: false
 amp: true
 fraction: 1.0
 profile: false
-freeze: 0
+freeze: 10
 multi_scale: 0.0
 compile: false
 channels_last: null
@@ -70,7 +70,7 @@ dynamic: false
 simplify: true
 opset: null
 workspace: null
-lr0: 0.0005
+lr0: 0.0001
 lrf: 0.01
 momentum: 0.937
 weight_decay: 0.0005
