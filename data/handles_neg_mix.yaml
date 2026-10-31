@@ -1,0 +1,5 @@
+train: ['handles_neg/train/images', 'handles_neg/train/images', 'handles_neg/train/images', 'handles_neg/train/images', '../Door handle.v1-door_handle_one_ann.yolov8/train/images']
+val: 'handles_neg/valid/images'
+test: 'handles_neg/test/images'
+nc: 1
+names: ['Door-handle']
