@@ -99,7 +99,7 @@ def stage3(args):
     )
     YOLO(args.weights or RUNS / "stage2/weights/best.pt").train(
         data=data, epochs=args.epochs or 40, imgsz=args.imgsz, batch=args.batch,
-        workers=args.workers, lr0=0.0005, warmup_epochs=1, freeze=args.freeze, patience=15,
+        workers=args.workers, lr0=0.0001, warmup_epochs=1, freeze=args.freeze, patience=15,
         project=RUNS, name="stage3", exist_ok=True,
         scale=0.5, degrees=5, close_mosaic=10,
     )
